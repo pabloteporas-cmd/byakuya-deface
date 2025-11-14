@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hack by Byakuya</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0a0a0a;
+            font-family: 'Courier New', monospace;
+            color: #e0e0e0;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-shadow: none;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 900px;
+            background: #0a0a0a;
+            border: 1px solid #333;
+            border-radius: 0;
+            padding: 80px 40px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+            position: relative;
+            animation: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .title {
+            font-size: 72px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 10px;
+            letter-spacing: 4px;
+            animation: glow-pulse 2s ease-in-out infinite;
+            color: #ffffff;
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0.8),
+                         0 0 60px rgba(255, 255, 255, 0.6),
+                         0 0 90px rgba(255, 255, 255, 0.4);
+        }
+
+        @keyframes glow-pulse {
+            0% {
+                text-shadow: 0 0 30px rgba(255, 255, 255, 0.8),
+                             0 0 60px rgba(255, 255, 255, 0.6),
+                             0 0 90px rgba(255, 255, 255, 0.4);
+            }
+            50% {
+                text-shadow: 0 0 50px rgba(255, 255, 255, 1),
+                             0 0 80px rgba(255, 255, 255, 0.8),
+                             0 0 110px rgba(255, 255, 255, 0.6);
+            }
+            100% {
+                text-shadow: 0 0 30px rgba(255, 255, 255, 0.8),
+                             0 0 60px rgba(255, 255, 255, 0.6),
+                             0 0 90px rgba(255, 255, 255, 0.4);
+            }
+        }
+
+        .subtitle {
+            font-size: 14px;
+            text-align: left;
+            margin-bottom: 30px;
+            color: #888;
+            letter-spacing: 1px;
+            animation: none;
+            display: none;
+        }
+
+        .divider {
+            height: 1px;
+            background: #333;
+            margin: 20px 0;
+            animation: none;
+        }
+
+        .content {
+            text-align: left;
+            font-size: 13px;
+            line-height: 1.8;
+            margin: 30px 0;
+            color: #ccc;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .btn {
+            padding: 10px 25px;
+            font-size: 12px;
+            border: 1px solid #555;
+            background: #222;
+            color: #ccc;
+            cursor: pointer;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 1px;
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: #333;
+            transition: left 0.2s ease;
+            z-index: -1;
+        }
+
+        .btn:hover {
+            box-shadow: none;
+            transform: none;
+            border-color: #777;
+            background: #2a2a2a;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn:active {
+            transform: translateY(0);
+            box-shadow: 0 0 40px #00ff88;
+        }
+
+        .matrix-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.03;
+        }
+
+        .status {
+            margin-top: 30px;
+            padding: 15px;
+            border: 1px solid #333;
+            background: #0f0f0f;
+            font-size: 12px;
+            text-align: left;
+            line-height: 1.6;
+            color: #999;
+        }
+
+        .status-line {
+            margin: 5px 0;
+        }
+
+        .status-line::before {
+            content: '$ ';
+            color: #666;
+            font-weight: bold;
+        }
+
+        .highlight {
+            color: #fff;
+            font-weight: bold;
+            text-shadow: none;
+        }
+
+        .corner-text {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            font-size: 11px;
+            color: #ffffff;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 0.5px;
+            animation: glow-pulse-corner 2s ease-in-out infinite;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.6),
+                         0 0 30px rgba(255, 255, 255, 0.4);
+            max-width: 600px;
+            line-height: 1.4;
+            display: block;
+        }
+
+        @keyframes glow-pulse-corner {
+            0% {
+                text-shadow: 0 0 15px rgba(255, 255, 255, 0.6),
+                             0 0 30px rgba(255, 255, 255, 0.4);
+            }
+            50% {
+                text-shadow: 0 0 20px rgba(255, 255, 255, 0.8),
+                             0 0 40px rgba(255, 255, 255, 0.6);
+            }
+            100% {
+                text-shadow: 0 0 15px rgba(255, 255, 255, 0.6),
+                             0 0 30px rgba(255, 255, 255, 0.4);
+            }
+        }
+    </style>
+</head>
+<body>
+    <canvas class="matrix-bg"></canvas>
+    
+    <div class="corner-text">Do you think your sin will disappear if you lie?</div>
+    
+    <div class="container">
+        <div style="display: flex; flex-direction: column; align-items: center; width: 100%;">
+            <img src="https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/04c25db7-d5f0-4df7-b58f-fad18c033d99" alt="Profile" style="width: 120px; height: 120px; border-radius: 8px; border: 2px solid #555; margin-bottom: 30px; object-fit: cover; box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);">
+            <div class="title">HACK BY BYAKUYA</div>
+        </div>
+    </div>
+
+    <script>
+        // Update time in status
+        function updateTime() {
+            const now = new Date();
+            const time = now.toLocaleTimeString();
+            document.getElementById('statusTime').textContent = 'Time: ' + time;
+        }
+
+        setInterval(updateTime, 1000);
+        updateTime();
+
+        // Matrix rain effect on canvas
+        function drawMatrixBg() {
+            const canvas = document.querySelector('.matrix-bg');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            
+            const ctx = canvas.getContext('2d');
+            ctx.fillStyle = 'rgba(0, 255, 136, 0.05)';
+            
+            for (let i = 0; i < 50; i++) {
+                const x = Math.random() * canvas.width;
+                const y = Math.random() * canvas.height;
+                const size = Math.random() * 20 + 10;
+                ctx.font = size + 'px Courier New';
+                ctx.fillText(Math.random() > 0.5 ? '1' : '0', x, y);
+            }
+        }
+
+        drawMatrixBg();
+        window.addEventListener('resize', drawMatrixBg);
+
+        // Button functions
+        function initSystem() {
+            alert('⚡ System initialized successfully!\n\n✓ All modules online\n✓ Security protocols active\n✓ Ready for operation');
+        }
+
+        function startHack() {
+            alert('🚀 Hack sequence initiated!\n\n[ ████████████████ ] 100%\n\nMission: COMPLETE\nStatus: SUCCESS');
+        }
+
+        function clearTerminal() {
+            if (confirm('Clear terminal data?')) {
+                alert('Terminal cleared. System reset to default state.');
+            }
+        }
+    </script>
+</body>
+</html>
